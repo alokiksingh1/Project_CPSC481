@@ -1,0 +1,148 @@
+﻿@page "/amenity/{id:int}"
+@inject NavigationManager nav
+@inject HttpClient Http
+@inject PageHistoryState PageHistoryState
+
+<PlaceHeaderAmenity PageTitle="Amenity" TargetAmenity="@TargetPlace" />
+
+<img class="images-amenity" src="@TargetPlace.ImgUrl" alt="@TargetPlace.Name" style="width:100%;">
+
+<div class="place-detail">
+    <PlaceInfo TargetPlace="@TargetPlace" />
+
+    <div class="reviews">
+        <nav class="navbar navbar-expand-lg navbar-light review-header">
+            <h5 style="margin-bottom: 0;">Reviews</h5>
+            @if(!state.isGuest)
+            {
+                <button class="btn add-review" type="button" data-bs-toggle="modal" data-bs-target="#addReview">
+                    <i class="bi bi-pencil"></i>
+                    Write a review
+                </button>
+            }
+            else
+            {
+                <button class="btn add-review" type="button" data-bs-toggle="modal" data-bs-target="#addReview" disabled>
+                    <i class="bi bi-pencil"></i>
+                    Write a review
+                </button>
+            }
+        </nav>
+        <div class="review-body">
+            @if (TargetPlace.Reviews != null)
+            {
+                @foreach (var review in TargetPlace.Reviews)
+                {
+                    <AmenityDetailReviewCard User="@review.user" PublishedOn="@review.published" Rate="@review.rating" ReviewContent="@review.review" />
+                    <hr />
+                }
+            }
+            <p class="show-more">Show More</p>
+        </div>
+    </div>
+
+    <h4>Similar Places</h4>
+
+    <div class="list-container">
+        @foreach (var similarPlace in similarPlaces)
+        {
+            <AmenityCard amenityId="@similarPlace.id" imgUrl="@similarPlace.ImgUrl"
+                     amenityName="@similarPlace.Name" amenityAddress="@similarPlace.Address" />
+        }
+    </div>
+</div>
+
+@code {
+    [CascadingParameter]
+    public StateModel state { get; set; }
+
+    [CascadingParameter]
+    public UserModel user { get; set; }
+
+    private List<int> similarPlacesId = new List<int> { };
+    private List<Amenity> similarPlaces = new List<Amenity> { };
+
+    public Amenity TargetPlace { get; set; }
+    private Review reviewItem = new Review();
+
+    [Parameter]
+    public int id { get; set; }
+
+    private async Task LoadDataAsync()
+    {
+        similarPlaces.Clear();
+        TargetPlace = state.AllAmenities[id];
+        user.Visited.Add(TargetPlace);
+
+        if (TargetPlace.Similar != null)
+        {
+            for (int i = 0; i < TargetPlace.Similar.Count; i++)
+            {
+                similarPlaces.Add(state.AllAmenities[Int32.Parse(TargetPlace.Similar[i])]);
+                user.Visited.Add(state.AllAmenities[Int32.Parse(TargetPlace.Similar[i])]);
+            }
+        }
+        reviewItem.place = TargetPlace;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadDataAsync();
+        base.OnInitialized();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        string currentUrl = "/amenity/" + id;
+        PageHistoryState.AddPageToHistory(currentUrl);
+        await LoadDataAsync();
+    }
+
+    void RatingOnChange(int value)
+    {
+        reviewItem.rating = value;
+    }
+
+    private void AddReview()
+    {
+        reviewItem.user = user.DisplayName;
+        reviewItem.published = "Dec 16, 2022";
+        user.Reviews.Add(reviewItem);
+        TargetPlace.Reviews.Add(reviewItem);
+
+        reviewItem = new Review();
+        reviewItem.place = TargetPlace;
+    }
+}
+
+<!-- Modal -->
+<div class="modal fade" id="addReview" tabindex="-1" aria-labelledby="editReviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" >
+            <div class="modal-body">
+                <div class="page-header">
+                    <h3>Rate <b>@reviewItem.place.Name</b></h3>
+                    <button class="btn btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <hr>
+
+                <div class="page-body">
+                    <div class="new-review-form">
+                        <div class="rating">
+                            <h2 for="floatingTextarea">Give it a Rate!</h2>
+                            <RadzenRating Stars="5" Value="@reviewItem.rating" Change=@(args => RatingOnChange(args)) />
+                        </div>
+                        <div class="review">
+                            <textarea @bind="reviewItem.review" class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 10rem;">
+                            </textarea>
+                        </div>
+
+                        <div class="form-controls">
+                            <button type="button" class="btn btn-primary-filled" data-bs-dismiss="modal" @onclick="AddReview">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

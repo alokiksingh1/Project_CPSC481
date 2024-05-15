@@ -1,0 +1,35 @@
+﻿p {
+    color: grey;
+}
+
+.offline {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+    .offline > h6 {
+        font-weight: 700;
+    }
+
+.bi-toggle-on {
+    font-size: 2rem;
+    color: #4E7779;
+}
+
+.btn-delete {
+    background-color: #7E6D53;
+    color: #F4F4E9;
+    margin-top: 1rem;
+}
+
+hr {
+    background-color: rgba(0, 0, 0, 0.5);
+    margin: 1rem 0;
+}
+
+.form-select {
+    margin-top: 1rem;
+}

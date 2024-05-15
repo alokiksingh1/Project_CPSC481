@@ -1,0 +1,77 @@
+﻿<div class="card review-card" type="button" data-bs-toggle="modal" data-bs-target="#editReview">
+    <div class="card-body">
+        <div class="review-header">
+            <RadzenRating ReadOnly="true" Stars="5" Value="@ReviewItem.rating" />
+            <p class="card-text">@ReviewItem.published</p>
+        </div>
+
+        <h5 class="card-title">@ReviewItem.user</h5>
+        <p>@ReviewItem.review</p>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="editReview" tabindex="-1" aria-labelledby="editReviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="page-header">
+                    <h3>Rate <b>@ReviewItem.place.Name</b></h3>
+                    <button class="btn btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <hr>
+
+                <div class="page-body">
+                    <div class="new-review-form">
+                        <div class="rating">
+                            <h2 for="floatingTextarea">Edit your review</h2>
+                            <RadzenRating Stars="5" Value="@ReviewItem.rating" />
+                        </div>
+                        <div class="review">
+                            <textarea @bind="ReviewItem.review" class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 10rem;">
+                            </textarea>
+                        </div>
+
+                        <div class="form-controls">
+                            <button type="button" class="btn btn-primary-filled" data-bs-dismiss="modal">Submit</button>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteReview">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteReview" aria-hidden="true" aria-labelledby="deleteReviewLabel" tabindex="-1">
+    <div id="modal-center" class="modal-dialog modal-dialog-centered">
+        <div class="modal-content modal-background">
+            <div class="modal-body">
+                <h5 class="create-option">Are you sure to delete this review?</h5>
+                <div class="form-controls modal-footer">
+                    <button type="button" class="btn btn-secondary-filled" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @onclick="DeleteReview">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [CascadingParameter]
+    public StateModel state { get; set; }
+
+    [CascadingParameter]
+    public UserModel user { get; set; }
+
+    [Parameter]
+    public Review ReviewItem { get; set; }
+
+    [Parameter]
+    public EventCallback<Review> DeleteItem { get; set; }
+
+    void DeleteReview()
+    {
+        DeleteItem.InvokeAsync(ReviewItem);
+    }
+}

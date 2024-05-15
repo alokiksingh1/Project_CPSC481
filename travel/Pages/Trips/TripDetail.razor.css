@@ -1,0 +1,134 @@
+﻿﻿.page-container {
+    width: 100%;
+    background: rgb(195,186,155);
+    background: linear-gradient(180deg, rgba(195,186,155,1) 0%, rgba(244,244,233,1) 25%, rgba(244,244,233,1) 50%, rgba(244,244,233,1) 75%, rgba(195,186,155,1) 100%);
+    padding: 0.5rem;
+    min-height: 800px;
+}
+
+.page-header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1rem;
+    justify-content: space-between;
+}
+
+.page-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0 1em;
+    height: auto;
+}
+
+.btn-round {
+    border-radius: 5rem;
+    padding: 0.5rem 0.95rem;
+
+}
+
+.page-title {
+    margin: 0;
+}
+
+.btn-fixed {
+    position: fixed;
+    bottom: 11.6rem;
+    right: 0;
+}
+
+.btn-add {
+    background-color: #4E7779;
+    color: white;
+    position: absolute;
+    right: 1.5rem;
+}
+
+#quick-add {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-size: x-small;
+    gap: 0.5rem;
+    height: auto;
+}
+
+#new-plan {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-size: small;
+    width: 100%;
+    padding: 0 0.5rem;
+}
+
+.dropdown-menu-dark .dropdown-item.active, .dropdown-menu-dark .dropdown-item:active {
+    background-color: #4E7779;
+}
+
+.plan-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1.5rem 1em 2rem 1em;
+    height: auto;
+    width: 100%;
+}
+
+.form-controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: nowrap;
+    padding: 0.75rem 0 0.25rem 0;
+    margin-top: 0.75rem;
+}
+
+.btn-save {
+    background-color: #4E7779;
+    margin: 0.5rem 0 0 0;
+    color: white;
+    width: 100%;
+    border: 2px solid transparent;
+}
+
+.btn-cancel {
+    background-color: #7E6D53;
+    margin: 0.5rem 0 0 0;
+    color: white;
+    width: 100%;
+    border: 2px solid transparent;
+}
+
+.btn-settings {
+    position: relative;
+    right: 0;
+}
+
+.bi-plus-lg {
+    font-size: 1.75rem;
+}
+
+.bi-three-dots-vertical {
+    font-size: 1.5rem;
+}
+
+.bi-chevron-left {
+    font-size: 1.5rem;
+}
+
+.add-new-plan{
+    background-color: white;
+}
+
+.time-picker {
+    display: flex;
+    flex-direction: row;
+}
+
+.rz-calendar .rz-inputtext {
+    height: calc(3.5rem + 2px) !important;
+}

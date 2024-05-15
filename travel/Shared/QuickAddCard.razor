@@ -1,0 +1,59 @@
+﻿<div class="card">
+    <img src=@TargetPlace.ImgUrl class="card-img-top" alt="...">
+    @if(added)
+    {
+        <button class="btn btn-round btn-add btn-added" type="button">
+            <i class="bi bi-check-lg"></i>
+        </button>
+    }
+    else
+    {
+        <button class="btn btn-round btn-add btn-to-add" type="button" @onclick="AddToTrip">
+            <i class="bi bi-plus-lg"></i>
+        </button>
+    }
+    <div class="card-body">
+        <h5 class="card-title title-smaller">@TargetPlace.Name</h5>
+        <p class="card-text">@placeInfoShown</p>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Place TargetPlace { get; set; }
+
+    private Amenity thisAmenity { get; set; }
+
+    private Event thisEvent { get; set; }
+
+    private string placeInfoShown { get; set; }
+
+    private bool added;
+
+    private string iconType;
+
+    [Parameter]
+    public EventCallback<Place> ToAddPlace { get; set; }
+
+    void AddToTrip()
+    {
+        added = !added;
+        ToAddPlace.InvokeAsync(TargetPlace);
+    }
+
+    protected override void OnInitialized()
+    {
+        added = false;
+
+        if (TargetPlace.GetType() == typeof(Amenity))
+        {
+            thisAmenity = (Amenity)TargetPlace;
+            placeInfoShown = thisAmenity.Address;
+        }
+        else
+        {
+            thisEvent = (Event)TargetPlace;
+            placeInfoShown = thisEvent.Date + "at " + thisEvent.StartTime;
+        }
+    }
+}

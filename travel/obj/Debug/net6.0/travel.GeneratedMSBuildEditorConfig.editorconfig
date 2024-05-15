@@ -1,0 +1,193 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = browser
+build_property.RootNamespace = travel
+build_property.RootNamespace = travel
+build_property.ProjectDir = /Users/alokiksinghkinra/Desktop/Project481/travel/
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = /Users/alokiksinghkinra/Desktop/Project481/travel
+build_property._RazorSourceGeneratorDebug = 
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Pages/Counter.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ291bnRlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Pages/FetchData.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRmV0Y2hEYXRhLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Pages/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1N1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Pages/Amenities/AmenityDetail.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQW1lbml0aWVzL0FtZW5pdHlEZXRhaWwucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-ermguuis9o
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Pages/Amenities/ExploreMain.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQW1lbml0aWVzL0V4cGxvcmVNYWluLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-7c09v5d7sn
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Pages/Events/EventDetail.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXZlbnRzL0V2ZW50RGV0YWlsLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-l2b86kvj6w
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Pages/Events/EventMain.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXZlbnRzL0V2ZW50TWFpbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-d4ctpbwn28
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Pages/Profile/Bookmarks.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvZmlsZS9Cb29rbWFya3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-5vdp2skh33
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Pages/Profile/EditProfile.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvZmlsZS9FZGl0UHJvZmlsZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-xjdvyncj1i
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Pages/Profile/ForgetPassword.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvZmlsZS9Gb3JnZXRQYXNzd29yZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-s3271b93pf
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Pages/Profile/Login.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvZmlsZS9Mb2dpbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-xhz8zizxgd
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Pages/Profile/ProfileMain.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvZmlsZS9Qcm9maWxlTWFpbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-35ib6yujpx
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Pages/Profile/Reviews.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvZmlsZS9SZXZpZXdzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-xd8sn5g9iv
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Pages/Profile/Settings.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvZmlsZS9TZXR0aW5ncy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-5q0zrqnhfe
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Pages/Profile/Signup.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvZmlsZS9TaWdudXAucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-zpap7zs9tc
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Pages/Trips/TripDetail.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVHJpcHMvVHJpcERldGFpbC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-4rdjqh35or
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Pages/Trips/TripsMain.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVHJpcHMvVHJpcHNNYWluLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-hwxbjl57on
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Shared/AmenityCard.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0FtZW5pdHlDYXJkLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-wh6ahvodi2
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Shared/AmenityDetailReviewCard.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0FtZW5pdHlEZXRhaWxSZXZpZXdDYXJkLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-w46sij1px5
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Shared/AmenitySearchResultCard.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0FtZW5pdHlTZWFyY2hSZXN1bHRDYXJkLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-g48ugrmjxr
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Shared/BookmarkCardAmenity.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0Jvb2ttYXJrQ2FyZEFtZW5pdHkucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-nx0gxxo80c
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Shared/BookmarkCardEvent.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0Jvb2ttYXJrQ2FyZEV2ZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-e9ueomsx5i
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Shared/CategoryCard.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0NhdGVnb3J5Q2FyZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-ihi1502oa4
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Shared/DayPlans.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0RheVBsYW5zLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-aq36qarjre
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Shared/EventCard.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0V2ZW50Q2FyZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-kjed3ckwks
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Shared/EventInfo.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0V2ZW50SW5mby5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-4jai7bfrww
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Shared/EventSearchResultCard.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0V2ZW50U2VhcmNoUmVzdWx0Q2FyZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-2913gyby7q
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Shared/FilterHeader.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0ZpbHRlckhlYWRlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-y3l89f3vnf
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL01haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-957noj2cj1
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL05hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-64v03kugsd
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Shared/PageHeader.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1BhZ2VIZWFkZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-g3apjqg06o
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Shared/PageLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1BhZ2VMYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-7n7myltlj1
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Shared/PlaceHeaderAmenity.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1BsYWNlSGVhZGVyQW1lbml0eS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-sf5c0i60rp
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Shared/PlaceHeaderEvent.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1BsYWNlSGVhZGVyRXZlbnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-rz51redizp
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Shared/PlaceInfo.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1BsYWNlSW5mby5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-j99n8ebru5
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Shared/PlanCard.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1BsYW5DYXJkLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-l0lgmw1d4e
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Shared/QuickAddCard.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1F1aWNrQWRkQ2FyZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-dmjicf0m4n
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Shared/ReviewCard.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1Jldmlld0NhcmQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-gnf0bfodnv
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Shared/Tag.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1RhZy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-5lmg21waha
+
+[/Users/alokiksinghkinra/Desktop/Project481/travel/Shared/TripCard.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1RyaXBDYXJkLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-2fnquvvmkp

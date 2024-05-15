@@ -1,0 +1,79 @@
+﻿@page "/bookmarks"
+@layout PageLayout
+@inject PageHistoryState PageHistoryState
+
+<AuthorizeView>
+    <Authorized>
+        <PageHeader pageTitle="Bookmarks" />
+        <div class="page-body">
+            @if (nbookmarks > 0)
+            {
+                <RadzenTabs TabPosition="@tabPosition" RenderMode="TabRenderMode.Client">
+                    <Tabs>
+                        <RadzenTabsItem Text="Amenity">
+                            <div class="tab-container">
+                                @foreach (Amenity bookmark in user.BookmarksAmenity)
+                                {
+                                    <BookmarkCardAmenity BookmarkedAmenity="@bookmark" UnbookmarkItem="@UnbookmarkAmenityCallBack" />
+                                }
+                            </div>
+                        </RadzenTabsItem>
+                        <RadzenTabsItem Text="Event">
+                            <div class="tab-container">
+                                @foreach (Event bookmark in user.BookmarksEvent)
+                                {
+                                    <BookmarkCardEvent BookmarkedEvent="@bookmark" UnbookmarkItem="@UnbookmarkEventCallBack" />
+                                }
+                            </div>
+
+                        </RadzenTabsItem>
+                    </Tabs>
+                </RadzenTabs>
+            }
+            else
+            {
+                <div class="empty-result">
+                    Start Bookmarking Your Favorite Places!
+                </div>
+            }
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <div style="width: 100%; height: 100%; align-items: center; justify-content: center; padding: 3rem; display: flex; flex-direction: column; gap: 2rem;">
+            <a href="/signup" class="btn btn-secondary-filled btn-larger-font">
+                Sign Up
+            </a>
+            <a href="/login" class="btn btn-primary-filled btn-larger-font">
+                Login
+            </a>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    [CascadingParameter]
+    public StateModel state { get; set; }
+
+    [CascadingParameter]
+    public UserModel user { get; set; }
+
+    TabPosition tabPosition = TabPosition.Top;
+    int nbookmarks;
+
+    protected override void OnInitialized()
+    {
+        PageHistoryState.AddPageToHistory("/bookmarks");
+        nbookmarks = user.BookmarksAmenity.Count() + user.BookmarksEvent.Count();
+        base.OnInitialized();
+    }
+
+    public void UnbookmarkAmenityCallBack(Amenity toUnbookmark)
+    {
+        user.BookmarksAmenity.Remove(toUnbookmark);
+    }
+
+    public void UnbookmarkEventCallBack(Event toUnbookmark)
+    {
+        user.BookmarksEvent.Remove(toUnbookmark);
+    }
+}

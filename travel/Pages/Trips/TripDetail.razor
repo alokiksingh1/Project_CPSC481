@@ -1,0 +1,379 @@
+﻿@page "/trips/{id:int}"
+@inject NavigationManager nav
+@inject PageHistoryState PageHistoryState
+
+<PageTitle>@TargetTrip.Name</PageTitle>
+
+<div class="page-container" >
+    <div class="page-header">
+        @if (PageHistoryState.CanGoBack())
+        {
+            <button class="btn btn-round btn-back" @onclick="GoBack"><i class="bi bi-chevron-left"></i></button>
+        }
+        else
+        {
+            <button class="btn btn-round btn-transparent" disabled><i class="bi bi-chevron-left"></i></button>
+        }
+        <p class="text-wrap fs-3 page-title">@TargetTrip.Name</p>
+        <div class="dropdown">
+            <button class="btn btn-round btn-settings" type="button" data-bs-toggle="dropdown">
+                <i class="bi bi-three-dots-vertical"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark">
+                <li>
+                    <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#rename">
+                        Rename
+                    </button>
+                </li>
+                <li>
+                    <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#delete">
+                        Delete
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="page-body">
+        @foreach (KeyValuePair<string, List<Plan>> dayplans in plans)
+        {
+            <DayPlans PlanDate="@dayplans.Key" Plans="@dayplans.Value" ToEdit="@EditPlanCallback" ToDelete="@DeletePlanCallback" />
+            <hr />
+        }
+    </div>
+    <div class="btn-fixed dropdown">
+        <button class="btn btn-round btn-add" type="button" data-bs-toggle="dropdown">
+            <i class="bi bi-plus-lg"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark">
+            <li>
+                <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addPlan">
+                    Add Plan
+                </button>
+            </li>
+            <li>
+                <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#quickAdd">
+                    Quick Add
+                </button>
+            </li>     
+        </ul>
+    </div>
+</div>
+
+@code {
+    [CascadingParameter]
+    public StateModel state { get; set; }
+
+    [CascadingParameter]
+    public UserModel user { get; set; }
+
+    public Trip TargetTrip { get; set; }
+
+    [Parameter]
+    public int id { get; set; }
+
+    Dictionary<string, List<Plan>> plans = new Dictionary<string, List<Plan>>();
+    HashSet<Place> toQuickAdd { get; set; } = new HashSet<Place>();
+
+    protected override void OnInitialized()
+    {
+        string currentUrl = "/trips/" + id;
+        PageHistoryState.AddPageToHistory(currentUrl);
+        TargetTrip = user.Trips[id];
+
+        DaysRefresh();
+
+        foreach(Amenity place in user.BookmarksAmenity)
+        {
+            toQuickAdd.Add(place);
+        }
+
+        foreach (Event place in user.BookmarksEvent)
+        {
+            toQuickAdd.Add(place);
+        }
+
+        foreach (Place place in user.Visited)
+        {
+            toQuickAdd.Add(place);
+        }
+    }
+
+    private void DeleteTrip()
+    {
+        int toDelete = user.Trips.IndexOf(TargetTrip);
+        user.Trips[toDelete].DeletePlan();
+        //user.Trips.Remove(TargetTrip);
+        nav.NavigateTo("/trips");
+    }
+
+    private void GoBack()
+    {
+        @if (PageHistoryState.CanGoBack())
+        {
+            string backPage = PageHistoryState.GetGoBackPage();
+            nav.NavigateTo(backPage);
+        }
+    }
+
+    void EditPlanCallback()
+    {
+        DaysRefresh();
+        StateHasChanged();
+    }
+
+    void DeletePlanCallback(Plan toDelete)
+    {
+        RemoveEmptyDays();
+        StateHasChanged();
+    }
+
+    void DaysRefresh() 
+    {
+        plans.Clear();
+        foreach(Plan plan in TargetTrip.Plans)
+        {
+            if (!plans.ContainsKey(plan.Date))
+            {
+                plans.Add(plan.Date, new List<Plan>());
+                plans[plan.Date].Add(plan);
+            }
+            else
+            {
+                plans[plan.Date].Add(plan);
+            }
+        }
+    }
+
+    void RemoveEmptyDays() 
+    {
+        var emptyKeys = plans.Where(pair => pair.Value.Count == 0)
+                        .Select(pair => pair.Key)
+                        .ToList();
+        foreach (var key in emptyKeys)
+        {
+            plans.Remove(key);
+        }
+    }
+
+    private Plan NewPlan = new Plan();
+    DateTime? DateValue = DateTime.Now;
+
+    void OnDateChange(DateTime? value, string format)
+    {
+        if (value != null) {
+            NewPlan.Date = value?.ToString(format);
+        }
+        else
+        {
+            NewPlan.Date = DateValue?.ToString(format);
+        }
+    }
+
+    void OnStartTimeChange(DateTime? value, string format)
+    {
+        if (value != null) {
+            NewPlan.Start = value?.ToString(format);
+        }
+        else
+        {
+            NewPlan.Start = DateValue?.ToString(format);
+        }
+    }
+
+    void OnEndTimeChange(DateTime? value, string format)
+    {
+        if (value != null)
+        {
+            NewPlan.End = value?.ToString(format);
+        }
+        else
+        {
+            NewPlan.End = DateValue?.ToString(format);
+        }
+    }
+
+    private void ValidatePlanCreation()
+    {
+        if (NewPlan.Name == null)
+        {
+            NewPlan.Name = "Default Plan " + TargetTrip.Plans.Count;
+        }
+
+        if (NewPlan.Date == null)
+        {
+            NewPlan.Date = DateValue?.ToString("MMM dd, yyyy");
+        }
+        if (NewPlan.Start == null)
+        {
+            NewPlan.Start = DateValue?.ToString("HH:mm tt");
+        }
+        if (NewPlan.End == null)
+        {
+            NewPlan.End = DateValue?.ToString("HH:mm tt");
+        }
+
+        NewPlan.Id = TargetTrip.Plans.Count;
+
+        TargetTrip.Plans.Add(NewPlan);
+        if (!plans.ContainsKey(NewPlan.Date))
+        {
+            plans.Add(NewPlan.Date, new List<Plan>());
+            plans[NewPlan.Date].Add(NewPlan);
+        }
+        else
+        {
+            plans[NewPlan.Date].Add(NewPlan);
+        }
+        NewPlan = new Plan();
+        StateHasChanged();
+    }
+
+    void QuickAddCallback(Place toAdd)
+    {
+        // add to current trip
+        Plan QuickAddNewPlan = new Plan();
+
+        if (toAdd.GetType() == typeof(Amenity))
+        {
+            Amenity thisAmenity = (Amenity)toAdd;
+            QuickAddNewPlan.Name = thisAmenity.Name;
+            QuickAddNewPlan.Date = "To Be Determine";
+            QuickAddNewPlan.Start = "TBD";
+            QuickAddNewPlan.End = "TBD";
+            QuickAddNewPlan.Address = thisAmenity.Address;
+        }
+        else
+        {
+            Event thisEvent = (Event)toAdd;
+            QuickAddNewPlan.Name = thisEvent.Name;
+            QuickAddNewPlan.Date = thisEvent.Date;
+            QuickAddNewPlan.Start = thisEvent.StartTime;
+            QuickAddNewPlan.End = thisEvent.EndTime;
+            QuickAddNewPlan.Address = thisEvent.Address;
+        }
+
+        QuickAddNewPlan.Id = TargetTrip.Plans.Count;
+
+        TargetTrip.Plans.Add(QuickAddNewPlan);
+        if (!plans.ContainsKey(QuickAddNewPlan.Date))
+        {
+            plans.Add(QuickAddNewPlan.Date, new List<Plan>());
+            plans[QuickAddNewPlan.Date].Add(QuickAddNewPlan);
+        }
+        else
+        {
+            plans[QuickAddNewPlan.Date].Add(QuickAddNewPlan);
+        }
+
+        StateHasChanged();
+    }
+}
+
+<div class="modal fade" id="rename" aria-hidden="true" aria-labelledby="newTripLabel" tabindex="-1">
+    <div id="modal-center" class="modal-dialog modal-dialog-centered">
+        <div class="modal-content modal-background">
+            <div class="modal-body">
+                <div class="trip-form">
+                    <h5 class="create-option">Rename Trip <b>@TargetTrip.Name</b></h5>
+                    <div class="form-floating mt-3 mb-3">
+                        <input @bind="TargetTrip.Name" class="form-control" id="tripName" placeholder="Happy Trip" />
+                        <label for="tripName">Trip Name</label>
+                    </div>
+                    <div class="form-controls modal-footer">
+                        <button type="button" class="btn btn-cancel" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                        <button type="button" class="btn btn-save" data-bs-dismiss="modal">Rename</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="delete" aria-hidden="true" aria-labelledby="newTripLabel" tabindex="-1">
+    <div id="modal-center" class="modal-dialog modal-dialog-centered">
+        <div class="modal-content modal-background">
+            <div class="modal-body">
+                <h5 class="create-option">Are you sure to delete the <b>@TargetTrip.Name</b> Trip?</h5>
+                <div class="form-controls modal-footer">
+                    <button type="button" class="btn btn-cancel" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                    <button type="button" class="btn btn-save" data-bs-dismiss="modal" @onclick="DeleteTrip">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addPlan" tabindex="-1" aria-labelledby="addPlanLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content add-new-plan">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Add a Plan</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="new-plan" class="modal-body">
+                <div class="plan-form">
+                    <div class="mb-3">
+                        <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Activity Name</RadzenText>
+                        <input type="text" @bind="@NewPlan.Name" class="form-control" id="activityName" placeholder="eg. Fun Activity" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Date</RadzenText>
+                        <RadzenDatePicker @bind-Value=@DateValue DateFormat="d" Change=@(args => OnDateChange(args, "MMM dd, yyyy")) Class="w-100" />
+                    </div>
+
+                    <div class="time-picker">
+                        <div class="mb-3">
+                            <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Start Time</RadzenText>
+                            <RadzenDatePicker TValue="DateTime?" ShowTime="true" TimeOnly="true" HourFormat="12" DateFormat="HH:mm" Change=@(args => OnStartTimeChange(args, "HH:mm tt")) Class="w-100" />
+                        </div>
+
+                        <div class="mb-3">
+                            <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">End Time</RadzenText>
+                            <RadzenDatePicker TValue="DateTime?" ShowTime="true" TimeOnly="true" HourFormat="12" DateFormat="HH:mm" Change=@(args => OnEndTimeChange(args, "HH:mm tt")) Class="w-100" />
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Address</RadzenText>
+                        <input type="text" @bind="@NewPlan.Address" class="form-control" id="address" placeholder="eg. 101 9 Ave SW, Calgary, AB T2P 1J9">
+                    </div>
+
+                    <div>
+                        <RadzenText TextStyle="TextStyle.Subtitle2" TagName="TagName.H3">Notes</RadzenText>
+                        <textarea class="form-control" @bind="@NewPlan.Notes" placeholder="Jot down notes for this plan" id="notes" style="height: 100px"></textarea>
+                    </div>
+
+                    
+                    <button type="button" class="btn btn-save mt-4" data-bs-dismiss="modal" @onclick="ValidatePlanCreation">Save</button>
+                    <button type="button" class="btn btn-save" data-bs-target="#addPlan" @onclick="ValidatePlanCreation">Save and Create Next Plan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="quickAdd" tabindex="-1" aria-labelledby="quickAddLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content add-new-plan">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Quick Add</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="quick-add" class="modal-body">
+                @if (toQuickAdd.Count > 0)
+                {
+                    @foreach (Place place in toQuickAdd)
+                    {
+                        <QuickAddCard TargetPlace="@place" ToAddPlace="@QuickAddCallback" />
+                    }
+                }
+                else
+                {
+                    <div style="font-size: large; text-align:center;">No recommendation right now, try to Explore More!</div>
+                    <button type="button" class="btn btn-secondary-filled" data-bs-dismiss="modal" aria-label="Close">Got it!</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>

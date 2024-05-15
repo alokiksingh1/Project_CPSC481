@@ -1,0 +1,53 @@
+﻿.card {
+    max-width: 11rem;
+}
+
+.btn-to-add {
+    width: fit-content;
+    font-size: 1.5rem;
+    padding: 0.125rem 0.5rem;
+    position: absolute;
+    right: -0.5rem;
+    top: 5.5rem;
+    opacity: 0.9;
+    border-radius: 5rem;
+    background-color: #90C7CA;
+    color: white;
+}
+
+    .btn-to-add:focus {
+        box-shadow: none;
+        background-color: #C3BA9B;
+    }
+
+.btn-added {
+    width: fit-content;
+    font-size: 1.5rem;
+    padding: 0.125rem 0.5rem;
+    position: absolute;
+    right: -0.5rem;
+    top: 5.5rem;
+    opacity: 0.9;
+    border-radius: 5rem;
+    background-color: #C3BA9B;
+    color: white;
+}
+
+    .btn-added:focus {
+        box-shadow: none;
+        background-color: #90C7CA;
+    }
+
+.title-smaller {
+    font-size: 1.2rem;
+}
+
+.card-text {
+    margin: 0;
+    font-size: 0.8rem;
+}
+
+img {
+    width: auto;
+    height: 7rem;
+}

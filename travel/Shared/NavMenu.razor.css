@@ -1,0 +1,58 @@
+.oi {
+    width: 2rem;
+    font-size: 1.1rem;
+    vertical-align: text-top;
+    top: -2px;
+}
+
+.navbar {
+    width: 100%;
+    border-top: 0.1rem solid lightgray;
+    padding-top: 0;
+}
+
+.navbar-nav {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.nav-item {
+    font-size: 0.9rem;
+}
+
+.btn-tab {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.btn-check:active + .btn-tab,
+.btn-check:checked + .btn-tab,
+.btn-tab.active,
+.btn-tab.dropdown-toggle.show,
+.btn-tab:active {
+    background-color: rgba(255,255,255,1);
+    color: #C3BA9B;
+}
+
+.nav-item ::deep a {
+    color: #d7d7d7;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    line-height: 2rem;
+}
+
+        .nav-item ::deep a.active {
+            background-color: rgba(255,255,255,1);
+            color: white;
+        }
+
+        .nav-item ::deep a:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+i {
+    font-size: 2.25rem;
+}

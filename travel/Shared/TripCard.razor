@@ -1,0 +1,23 @@
+﻿@inject NavigationManager nav
+
+@if (TargetTrip.Name.Length > 0)
+{
+    <div class="trip-card btn card shadow-sm" @onclick="GoToPage">
+        <div class="card-body">
+            <h5 class="card-title">@TargetTrip.Name</h5>
+            <p class="card-text">@TargetTrip.StartDate - @TargetTrip.EndDate</p>
+            <p class="card-text">@TargetTrip.Days</p>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public Trip TargetTrip { get; set; }
+
+    public void GoToPage()
+    {
+        string placeUrl = "/trips/" + TargetTrip.id;
+        nav.NavigateTo(placeUrl);
+    }
+}

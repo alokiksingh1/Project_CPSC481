@@ -1,0 +1,30 @@
+﻿@inject PageHistoryState PageHistoryState
+@inject NavigationManager navigationManager
+
+<div class="page-header">
+    @if (PageHistoryState.CanGoBack()) 
+    {
+        <button class="btn btn-round btn-back" @onclick="GoBack"><i class="bi bi-chevron-left"></i></button>
+    }
+    else
+    {
+        <button class="btn btn-round btn-transparent" disabled><i class="bi bi-chevron-left"></i></button>
+    }
+    
+    <h3>@pageTitle</h3>
+    <button class="btn btn-round btn-transparent" disabled><i class="bi bi-chevron-right"></i></button>
+</div>
+
+@code {
+    [Parameter]
+    public string pageTitle { get; set; }
+
+    private void GoBack()
+    {
+        @if (PageHistoryState.CanGoBack())
+        {
+            string backPage = PageHistoryState.GetGoBackPage();
+            navigationManager.NavigateTo(backPage);
+        }
+    }
+}

@@ -1,0 +1,84 @@
+﻿@page "/profile"
+@inject AuthenticationStateProvider authenticationStateProvider
+@inject NavigationManager navigationManager
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
+@inject PageHistoryState PageHistoryState
+
+<AuthorizeView>
+    <Authorized>
+        <div>
+            <div class="profile-background">
+                <div class="user-info">
+                    <h1 class="fw-bold">Profile</h1>
+                    <h5>@user.DisplayName</h5>
+                </div>
+            </div>
+            <div class="user-choices">
+                <a class="btn btn-no-outline btn-choice" href="bookmarks">
+                    <div class="btn-description">
+                        <i class="bi bi-bookmarks"></i>
+                        <span>Bookmarks</span>
+                    </div>
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+                <a class="btn btn-no-outline btn-choice" href="reviews">
+                    <div class="btn-description">
+                        <i class="bi bi-book"></i>
+                        <span>Reviews</span>
+                    </div>
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+                <a class="btn btn-no-outline btn-choice" href="editUserInfo">
+                    <div class="btn-description">
+                        <i class="bi bi-pencil-square"></i>
+                        <span>Edit Profile</span>
+                    </div>
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+                <a class="btn btn-no-outline btn-choice" href="settings">
+                    <div class="btn-description">
+                        <i class="bi bi-gear"></i>
+                        <span>Settings</span>
+                    </div>
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+                <a class="btn btn-logout" href="login" @onclick="Logout">Sign Out</a>
+            </div>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <div style="width: 100%; height: 100%; align-items: center; justify-content: center; padding: 3rem 3rem 10rem 3rem; display: flex; flex-direction: column; gap: 2rem;">
+            <RadzenText TextStyle="TextStyle.H4">Hello! <b>Login</b> or <b>Signup</b> to manage your favorites and easily plan your next trip!</RadzenText>
+            <a href="/signup" class="btn btn-secondary-filled btn-larger-font">
+                Sign Up
+            </a>
+            <a href="/login" class="btn btn-primary-filled btn-larger-font">
+                Login
+            </a>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    [CascadingParameter]
+    public StateModel state { get; set; }
+
+    [CascadingParameter]
+    public UserModel user { get; set; }
+
+    protected override void OnInitialized()
+    {
+        PageHistoryState.AddPageToHistory("/profile");
+        base.OnInitialized();
+    }
+
+    public void Logout()
+    {
+        ((TravelAuthenticationStateProvider)authenticationStateProvider).NotifyUserLogout();
+        state.isGuest = true;
+        user.ClearUserData();
+        state.JustLogout = true;
+        state.ShowNav = false;
+        navigationManager.NavigateTo("/login");
+    }
+}

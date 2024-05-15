@@ -1,0 +1,66 @@
+﻿@inherits LayoutComponentBase
+@inject HttpClient Http
+
+<div class="page">
+    <CascadingValue Value="@state">
+        <CascadingValue Value="@user">
+            <main>
+                <article class="content">
+                    @Body
+                </article>
+            </main>
+
+            @if (state.ShowNav) {
+                <div class="navbar">
+                    <NavMenu />
+                </div>
+            }
+        </CascadingValue>
+    </CascadingValue>
+</div>
+
+@code {
+    StateModel state;
+    UserModel user;
+
+    protected override void OnInitialized()
+    {
+        state = new StateModel();
+        user = new UserModel();
+        base.OnInitialized();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // need popular amenities: hard code
+        // suggested amenities: from user search result - random then search result
+        // popular categories: hard code, go to search result by applying that filter
+
+        state.AllAmenities = await Http.GetFromJsonAsync<Amenity[]>("sample-data/amenities.json");
+        state.AllEvents = await Http.GetFromJsonAsync<Event[]>("sample-data/events.json");
+        state.DummyTrips = await Http.GetFromJsonAsync<Trip[]>("sample-data/trips.json");
+        state.DummyPlans = await Http.GetFromJsonAsync<Plan[]>("sample-data/plans.json");
+        state.GenTrip1 = await Http.GetFromJsonAsync<Plan[]>("sample-data/genTrip1.json");
+        state.GenTrip2 = await Http.GetFromJsonAsync<Plan[]>("sample-data/genTrip2.json");
+        state.GenTrip3 = await Http.GetFromJsonAsync<Plan[]>("sample-data/genTrip3.json");
+        state.GenTrip4 = await Http.GetFromJsonAsync<Plan[]>("sample-data/genTrip4.json");
+
+        for (int i = 0; i < 10; i++)
+        {
+            state.PopularAmenities.Add(state.AllAmenities[i]);
+            state.SuggestedAmenities.Add(state.AllAmenities[state.AllAmenities.Length - 1 - i]);
+            state.PopularEvents.Add(state.AllEvents[i]);
+            state.SuggestedEvents.Add(state.AllEvents[state.AllEvents.Length - 1 - i]);
+        }
+
+        foreach (Trip trip in state.DummyTrips)
+        {
+            user.Trips.Add(trip);
+        }
+
+        foreach (Plan plan in state.DummyPlans)
+        {
+            user.Trips[0].Plans.Add(plan);
+        }
+    }
+}
